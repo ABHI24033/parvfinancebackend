@@ -2116,7 +2116,7 @@ router.get("/Businessdownload/:id", async (req, res) => {
 
 router.post('/upload_gallery_images', upload.array('images', 10), async (req, res) => {
   const files = req.files;
-  console.log("Gallery", files);
+  // console.log("Gallery", files);
 
   if (!files || files.length === 0) {
     return res.status(400).send('No images uploaded.');
@@ -2152,7 +2152,7 @@ router.post('/upload_gallery_images', upload.array('images', 10), async (req, re
     console.log("uploaded File ::::", uploadedFile.url);
     // form.files.push({
       const data=await new GalleryImages({
-      fieldName: uploadedFile.fieldName, // replace with your field name
+      filename: uploadedFile.filename, // replace with your field name
       url: uploadedFile.url,
       // fileName: uploadedFile.Key.split('/').pop(), // get the filename from S3 key
       path: uploadedFile.path, // S3 file URL
