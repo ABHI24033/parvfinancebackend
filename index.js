@@ -4,7 +4,7 @@ const { connectToMongo } = require('./db');
 const cors = require('cors');
 const { firebaseapp } = require('./utils/firebase');
 // const { Functions } = require('firebase-admin/functions');
-const functions = require('firebase-functions');
+// const functions = require('firebase-functions');
 
 
 app.use(cors());
@@ -29,4 +29,4 @@ app.listen(port, () => {
     console.log(`listening at ${port}`);
 })
 
-exports.api=functions.https.onRequest(app);
+// exports.api=functions.https.onRequest(app);
