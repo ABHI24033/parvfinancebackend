@@ -7,7 +7,19 @@ const { firebaseapp } = require('./utils/firebase');
 // const functions = require('firebase-functions');
 
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+    origin: 'https://parvloan.firebaseapp.com/',
+    // credentials: true // if you're using cookies or sessions  
+}));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://parvloan.firebaseapp.com/');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    // res.setHeader('Access-Control-Allow-Credentials', true); // if you're using cookies or sessions
+    next();
+  });
+
 app.use(express.json());
 
 app.use("/api/v1/", require('./routes/data'));
