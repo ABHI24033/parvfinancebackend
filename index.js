@@ -1,0 +1,32 @@
+const express = require('express');
+const app = express();
+const { connectToMongo } = require('./db');
+const cors = require('cors');
+const { firebaseapp } = require('./utils/firebase');
+// const { Functions } = require('firebase-admin/functions');
+const functions = require('firebase-functions');
+
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/v1/", require('./routes/data'));
+app.use("/api/v1/",require('./routes/user.route'));
+app.use("/api/v1/",require('./routes/employee.route'));
+app.use("/api/v1/",require('./routes/homeLoan.route'));
+
+app.use(express.static('temp'));
+app.use('/temp', express.static('temp'));
+
+// firebaseapp();
+// app.use(firebaseapp);
+connectToMongo();
+
+
+
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+    console.log(`listening at ${port}`);
+})
+
+exports.api=functions.https.onRequest(app);
