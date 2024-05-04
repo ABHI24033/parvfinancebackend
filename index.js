@@ -2,21 +2,23 @@ const express = require('express');
 const app = express();
 const { connectToMongo } = require('./db');
 const cors = require('cors');
-const { firebaseapp } = require('./utils/firebase');
+// const { firebaseapp } = require('./utils/firebase');
 // const { Functions } = require('firebase-admin/functions');
 // const functions = require('firebase-functions');
 
 
 // app.use(cors());
 app.use(cors({
-    origin: 'https://parvloan.firebaseapp.com/',
-    // credentials: true // if you're using cookies or sessions  
+    // origin: 'https://parvloan.firebaseapp.com/',
+    origin: '*',
+    credentials: true // if you're using cookies or sessions  
 }));
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://parvloan.firebaseapp.com/');
+    // res.setHeader('Access-Control-Allow-Origin', 'https://parvloan.firebaseapp.com/');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    // res.setHeader('Access-Control-Allow-Credentials', true); // if you're using cookies or sessions
+    // res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true); // if you're using cookies or sessions
     next();
   });
 
@@ -36,6 +38,7 @@ connectToMongo();
 
 
 
+// const port = process.env.PORT || 8000;
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log(`listening at ${port}`);
