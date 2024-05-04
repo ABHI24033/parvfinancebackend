@@ -29,10 +29,10 @@ app.use("/api/v1/",require('./routes/user.route'));
 app.use("/api/v1/",require('./routes/employee.route'));
 app.use("/api/v1/",require('./routes/homeLoan.route'));
 
-// app.use(express.static('temp'));
-app.use(express.static('tmp'));
-// app.use('/temp', express.static('temp'));
-app.use('/tmp', express.static('tmp'));
+app.use(express.static('temp'));
+// app.use(express.static('tmp'));
+app.use('/temp', express.static('temp'));
+// app.use('/tmp', express.static('tmp'));
 
 // firebaseapp();
 // app.use(firebaseapp);

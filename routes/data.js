@@ -29,7 +29,7 @@ const { uploadImageAndGetUrl, deleteFilefromfirebase } = require("../utils/fireb
 let fileName;
 
 // Ensure the 'uploads' directory exists
-const uploadsPath = path.join(__dirname, '..', 'tmp');
+const uploadsPath = path.join(__dirname, '..', 'temp');
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath, { recursive: true });
 }
