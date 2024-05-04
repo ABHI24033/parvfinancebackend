@@ -11,14 +11,14 @@ const cors = require('cors');
 app.use(cors({
     // origin: 'https://parvloan.firebaseapp.com/',
     origin: '*',
-    credentials: true // if you're using cookies or sessions  
+    // credentials: true // if you're using cookies or sessions  
 }));
 app.use((req, res, next) => {
     // res.setHeader('Access-Control-Allow-Origin', 'https://parvloan.firebaseapp.com/');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     // res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', true); // if you're using cookies or sessions
+    // res.setHeader('Access-Control-Allow-Credentials', true); // if you're using cookies or sessions
     next();
   });
 

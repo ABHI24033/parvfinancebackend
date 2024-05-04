@@ -88,6 +88,7 @@ router.get("/", (req, res) => {
 })
 
 router.post("/uploadImage", uploadimage.single("file"), async (req, res) => {
+  console.log("testing");
   try {
     // const s3 = new AWS.S3();
     // console.log(req.file);
