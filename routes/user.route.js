@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
         if (user_type !== user.user_type) {
             return res.status(200).json({ message: "User not found" });
         }
-
+        console.log("User--",user)
         if (user) {
             if (password === user.password) {
                 res.status(200).json({
