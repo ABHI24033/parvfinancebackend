@@ -15,6 +15,27 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+async function sendMail(email, fullname) {
+    try {
+        const templatePath = 'index.html';
+        const template = fs.readFileSync(templatePath, 'utf8');
+        const htmlContent = mustache.render(template, { fullname });
+
+        const mailOptions = {
+            from: 'parvmultiservices@gmail.com',
+            to: email,
+            subject: 'Welcome Confirmation',
+            html: htmlContent,
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.response);
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error; // Re-throw the error to be caught by the calling code
+    }
+}
+
 router.post("/register", async (req, res) => {
 
     try {
@@ -66,11 +87,11 @@ router.post("/login", async (req, res) => {
         if (!email || !password) return res.status(400).json("email and password is required");
 
         const user = await Users.findOne({ email });
+        console.log("User--",user)
 
         if (user_type !== user.user_type) {
             return res.status(200).json({ message: "User not found" });
         }
-        console.log("User--",user)
         if (user) {
             if (password === user.password) {
                 res.status(200).json({
@@ -128,26 +149,7 @@ router.get("/getuserbyid/:id", async (req, res) => {
     }
 })
 
-async function sendMail(email, fullname) {
-    try {
-        const templatePath = 'index.html';
-        const template = fs.readFileSync(templatePath, 'utf8');
-        const htmlContent = mustache.render(template, { fullname });
 
-        const mailOptions = {
-            from: 'parvmultiservices@gmail.com',
-            to: email,
-            subject: 'Welcome Confirmation',
-            html: htmlContent,
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent:', info.response);
-    } catch (error) {
-        console.error('Error sending email:', error);
-        throw error; // Re-throw the error to be caught by the calling code
-    }
-}
 
 router.post("/add_employee", async (req, res) => {
     try {
