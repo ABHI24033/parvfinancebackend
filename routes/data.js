@@ -2150,7 +2150,7 @@ router.post('/upload_gallery_images', upload.array('images', 10), async (req, re
 
   // Update the form document with S3 file details and save
   for (const uploadedFile of uploadedPromises) {
-    console.log("uploaded File ::::", uploadedFile.url);
+    // console.log("uploaded File ::::", uploadedFile.url);
     // form.files.push({
       const data=await new GalleryImages({
       filename: uploadedFile.filename, // replace with your field name
@@ -2194,9 +2194,10 @@ router.get('/getAllGalleryImages', async (req, res) => {
 })
 router.delete("/deleteimage/:id", async (req, res) => {
   try {
-
+    const image = await GalleryImages.findByIdAndDelete(req.params.id)
+    res.status(200).send(image);
   } catch (error) {
-
+    res.status(500).send("Error while deleting the file");
   }
 })
 module.exports = router;
