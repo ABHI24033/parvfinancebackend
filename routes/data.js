@@ -1522,15 +1522,12 @@ router.post('/carformUploadfiles/:id', upload.fields([
     const uploadedPromises = await Promise.all(uploadPromises);
     console.log("uploaded promesis", uploadedPromises);
 
-    // Update the form document with S3 file details and save
+    // Update the form document with forebase storage file details and save
     for (const uploadedFile of uploadedPromises) {
-      console.log("uploaded File ::::", uploadedFile);
       form.files.push({
         fieldName: uploadedFile.fieldName, // replace with your field name
         url: uploadedFile.url,
-        // fileName: uploadedFile.Key.split('/').pop(), // get the filename from S3 key
         path: uploadedFile.path, // S3 file URL
-        // originalFileName: uploadedFile.originalname, // or modify based on your requirements
       });
     }
     await form.save();
@@ -1826,9 +1823,7 @@ router.post('/businessformUploadfiles/:id',
         form.files.push({
           fieldName: uploadedFile.fieldName, // replace with your field name
           url: uploadedFile.url,
-          // fileName: uploadedFile.Key.split('/').pop(), // get the filename from S3 key
           path: uploadedFile.path, // S3 file URL
-          // originalFileName: uploadedFile.originalname, // or modify based on your requirements
         });
       }
       await form.save();
@@ -1897,12 +1892,9 @@ router.delete("/deletebusinessloan/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const Data = await BusinessLoanForm.findById(id);
-    // console.log("Car loan data", carData);
     Data.files.forEach(async (file) => {
-      // console.log("file", file);
       const filepath = file?.path;
-      const deletefromfirebase = await deleteFilefromfirebase(filepath);
-      console.log("deletefromfirebase", deletefromfirebase);
+       await deleteFilefromfirebase(filepath);
     });
     await BusinessLoanForm.findByIdAndDelete(id);
     res.status(200).json({ message: "deleted" });
@@ -2126,24 +2118,24 @@ router.post('/upload_gallery_images', upload.array('images', 10), async (req, re
   // =================================
   const uploadPromises = [];
   // for (const fieldName in req.files) {
-    // const files = req.files[fieldName];
-    for (const file of files) {
-      // console.log("file :-", file);
-      const random = Math.random().toString().substr(2, 6);
-      const destinationFileName = `salariedhomeloan/${random}${file.originalname}`;
-      const uploadfile = await uploadImageAndGetUrl(file?.path, destinationFileName);
+  // const files = req.files[fieldName];
+  for (const file of files) {
+    // console.log("file :-", file);
+    const random = Math.random().toString().substr(2, 6);
+    const destinationFileName = `galleryImages/${random}${file.originalname}`;
+    const uploadfile = await uploadImageAndGetUrl(file?.path, destinationFileName);
 
-      // uploadPromises.push(abhi);
-      uploadPromises.push({ filename: file.filename, url: uploadfile, path: destinationFileName });
+    // uploadPromises.push(abhi);
+    uploadPromises.push({ filename: file.filename, url: uploadfile, path: destinationFileName });
 
-      fs.unlink(file.path, (err) => {
-        if (err) {
-          console.error('Error deleting file:', err);
-        } else {
-          console.log('File deleted successfully:');
-        }
-      })
-    }
+    fs.unlink(file.path, (err) => {
+      if (err) {
+        console.error('Error deleting file:', err);
+      } else {
+        console.log('File deleted successfully:');
+      }
+    })
+  }
   // }
   // Wait for all the files to be uploaded to S3
   const uploadedPromises = await Promise.all(uploadPromises);
@@ -2152,7 +2144,7 @@ router.post('/upload_gallery_images', upload.array('images', 10), async (req, re
   for (const uploadedFile of uploadedPromises) {
     // console.log("uploaded File ::::", uploadedFile.url);
     // form.files.push({
-      const data=await new GalleryImages({
+    const data = await new GalleryImages({
       filename: uploadedFile.filename, // replace with your field name
       url: uploadedFile.url,
       // fileName: uploadedFile.Key.split('/').pop(), // get the filename from S3 key
@@ -2192,10 +2184,14 @@ router.get('/getAllGalleryImages', async (req, res) => {
     res.status(500).send("Error while fetching the file");
   }
 })
-router.delete("/deleteimage/:id", async (req, res) => {
+router.delete("/delete_image/:id", async (req, res) => {
   try {
-    const image = await GalleryImages.findByIdAndDelete(req.params.id)
-    res.status(200).send(image);
+    const { id } = req.params; 
+    const image = await GalleryImages.findById(id)
+    const filepath = image?.path;
+     await deleteFilefromfirebase(filepath);
+    await GalleryImages.findByIdAndDelete(id);
+    res.status(200).json({message:"image deleted successfully"});
   } catch (error) {
     res.status(500).send("Error while deleting the file");
   }

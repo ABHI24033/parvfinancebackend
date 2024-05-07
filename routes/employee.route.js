@@ -26,13 +26,15 @@ const EmployeeData = require('../models/EmployeeData');
 
 const upload = multer({ storage:  multer.memoryStorage()  });
 
-router.post('/upload_data', upload.single('file'), async (req, res) => {
+router.post('/upload_data/:id', upload.single('file'), async (req, res) => {
+  
     if (!req.file) {
       return res.status(400).send('No file uploaded');
     }
   
     try {
       // Read the Excel file
+      const {id}=req.params;
       const workbook = xlsx.read(req.file.buffer, { type: 'buffer' });
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
@@ -46,13 +48,15 @@ router.post('/upload_data', upload.single('file'), async (req, res) => {
   
       // Convert rows to objects using headers
       const data = rows.map((row) => {
-        const obj = {};
+        const obj = {
+          employee_id:id,
+        };
         headers.forEach((header, idx) => {
           obj[header] = row[idx];
         });
         return obj;
       });
-  
+      // console.log(data);
       // Insert the data into MongoDB
       await EmployeeData.insertMany(data);
   

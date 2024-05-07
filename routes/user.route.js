@@ -194,7 +194,7 @@ router.post("/add_employee", async (req, res) => {
 
 router.get("/get_employee", async (req, res) => {
     try {
-        const users = await Employee.find();
+        const users = await Users.find({user_type:"Employee"});
         res.status(200).json(users);
     } catch (error) {
         res.status(500).send('Internal Server Error');

@@ -1,0 +1,45 @@
+1.Email:-abhi24033c@gmail.com-->admin
+  password:-12345
+
+2.Email :- mohan@gmail.com-->connector
+  password:- 12345
+
+
+============================
+Home Loan ka form complete kare
+
+1./deletebusinessloan
+2./deletecarloan
+
+=================================================================
+
+
+
+========================27-4-2024===========
+1. make a image upload for shown in gallery.(completed)
+2.Loan apply for connector in Dashboard section.(completed)
+3.redirect to contact section for get a call. (completed)
+
+5.Change Loan repayment to previous loan History.(completed)
+
+6.Home Loan Ka form banaye. isme property details importatnt hai.(90% completed).
+
+7.//Home Loan form me agar every property ke liye question karna hai tab file upload show karwania h
+
+8.Make a loan calculator in Home page (Reducing calculator) (completed).
+
+=================================================
+1.delete option for gallery images.
+2.connector payout ka section isme admin payout detail enter karega or connector dashboard me dikhega.
+
+
+https://firebasestorage.googleapis.com/v0/b/parvfinance-84dfd.appspot.com/o/%2Fpdf%2FAbhishek%20(Resume%20%202).pdf?alt=media&token=52835452-da1f-456b-8892-82f465460f8b
+
+https://storage.googleapis.com/download/storage/v1/b/parvfinance-84dfd.appspot.com/o/%2Fpdf%2FAbhishek%20(Resume%20).pdf?generation=1714629273792869&alt=media
+
+https://www.googleapis.com/storage/v1/b/parvfinance-84dfd.appspot.com/o/%2Fpdf%2FAbhishek%20(Resume%20).pdf
+
+
+https://storage.googleapis.com/gs://parvfinance-84dfd.appspot.com/boat.jpeg
+
+
