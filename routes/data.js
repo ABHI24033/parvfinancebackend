@@ -1424,7 +1424,8 @@ router.post("/carLoanForm", async (req, res) => {
       email: formData.email,
       phone: formData.phone,
       address: formData.address,
-      business_address: formData.business_address
+      business_address: formData.business_address,
+      vehicle_type:formData?.vehicle_type
     }
 
     const coapplicantdetails = {

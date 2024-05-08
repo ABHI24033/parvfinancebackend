@@ -9,6 +9,7 @@ const carloanformSchema = new mongoose.Schema({
             phone : String,
             address : String,
             business_address : String,
+            vehicle_type:String,
         }
     ,
     userbankingdetails : [
