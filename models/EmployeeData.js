@@ -12,7 +12,11 @@ const employeeDataSchema=new mongoose.Schema({
     name: String,
     email: String,
     phone: String,
+    alternate_number:String,
     loanType: String,
+    location: String,
+    connector_name: String,
+    remarks: String,
     employeeId: String,
     employee_id:String,
 },{timestamps:true});
