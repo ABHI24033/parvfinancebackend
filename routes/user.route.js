@@ -65,7 +65,7 @@ router.post("/register", async (req, res) => {
             full_name,
             current_profession,
             company_name,
-            approved:false,
+            approved:null,
             user_type,
 
         });

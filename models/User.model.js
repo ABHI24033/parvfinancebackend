@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     // phonenumber,
     approved:{
         type:Boolean,
-        default:null
+        default:null  
     },
     code: String,
     user_type: String,//employee,admin,connector
