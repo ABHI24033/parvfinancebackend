@@ -126,11 +126,39 @@ router.put('/update_connector_status/:id', async (req, res) => {
     try {
       // Find the item by ID and update the 'approved' field to true
       const updatedItem = await Users.findByIdAndUpdate(itemId, { approved: true }, { new: true });
-  
       if (!updatedItem) {
         return res.status(404).json({ message: `Item with ID ${itemId} not found.` });
       }
   
+      res.status(200).json(updatedItem);
+    } catch (error) {
+      console.error('Error updating item:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+router.put('/reject_connector_status/:id', async (req, res) => {
+    const itemId = req.params.id;
+  
+    try {
+      // Find the item by ID and update the 'approved' field to true
+      const updatedItem = await Users.findByIdAndUpdate(itemId, { approved: false }, { new: true });
+      if (!updatedItem) {
+        return res.status(404).json({ message: `Item with ID ${itemId} not found.` });
+      }
+  
+      res.status(200).json(updatedItem);
+    } catch (error) {
+      console.error('Error updating item:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+router.delete('/delete_connector/:id', async (req, res) => {
+    const itemId = req.params.id;
+    try {
+      const updatedItem = await Users.findByIdAndDelete(itemId);
+      if (!updatedItem) {
+        return res.status(404).json({ message: `Item with ID ${itemId} not found.` });
+      }
       res.status(200).json(updatedItem);
     } catch (error) {
       console.error('Error updating item:', error);
